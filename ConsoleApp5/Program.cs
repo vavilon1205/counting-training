@@ -23,7 +23,7 @@ Console.SetWindowSize(90, 30);
 
 
 while (programm == true)
-{ 
+{
     switch (menu)
     {
         case 0:
@@ -48,10 +48,12 @@ while (programm == true)
             if (examples == 0)
             {
                 Console.WriteLine("Решите пример\n");
+                examples++;
             }
             else
             {
                 Console.WriteLine("Решите следующий пример\n");
+                examples++;
             }
             znak = RandomNumber(0, 1);
             if (znak == 0)
@@ -67,9 +69,9 @@ while (programm == true)
                         menu = 2;
                         break;
                     }
-                }             
+                }
             }
-            if(znak == 1)
+            if (znak == 1)
             {
                 while (true)
                 {
@@ -87,52 +89,90 @@ while (programm == true)
                 }
             }
             break;
-         
+
         case 2:
             Console.WriteLine("Ваш ответ?\n");
             enter = Console.ReadLine();
             number = NumberCheck(enter);
-            while (answer != result)
+            if (number == true)
+            {
+                answer = int.Parse(enter);
+                Console.Clear();
+                menu = 3;
+            }
+            else
+            {
+                Console.Clear();
+                menu = 2;
+            }
+            break;
+
+        case 3:
+            if (answer != result)
             {
                 mistakes++;
                 Console.Clear();
                 Console.WriteLine("Не правильно!\n\nДопущено ошибок - {0}\nРешено примеров - {1}\n", mistakes, examples);
                 if (znak == 0)
                 {
-                    Console.WriteLine("{0} - {1}\n", number1, number2);
-                    Console.WriteLine("Ваш ответ?\n");
+                    Console.WriteLine("{0} - {1} = ?\n", number1, number2);
+
+
                 }
                 if (znak == 1)
                 {
-                    Console.WriteLine("{0} + {1}\n", number1, number2);
-                    Console.WriteLine("Ваш ответ?\n");
+                    Console.WriteLine("{0} + {1} = ?\n", number1, number2);
+
+
                 }
-
-
-                //answer = Convert.ToInt32(Console.ReadLine());
+                menu = 2;
+            }
+            if (answer == result)
+            {
 
             }
-            Console.Clear();
-            examples++;
-            string total = $"{a} + {b} = {result}";
-            list.Add(examples, total);
-            Console.WriteLine("Правильно!!!\n\nДопущено ошибок - {0}\nРешено примеров - {1}", mistakes, examples);
+            break;
+
+
+        case 4:
             Console.WriteLine("\nДля продолжения нажмите - Enter\nДля выхода нажмите - Home\n");
             ConsoleKeyInfo key = Console.ReadKey();
             Console.Clear();
             if (key.Key == ConsoleKey.Enter)
             {
-                continue;
-
+                menu = 2;
+                break;
             }
             if (key.Key == ConsoleKey.Home)
             {
                 programm = false;
-
+                break;
             }
+
             break;
 
-        
+            //answer = Convert.ToInt32(Console.ReadLine());
+            //Console.Clear();
+            //examples++;
+            //string total = $"{a} + {b} = {result}";
+            //list.Add(examples, total);
+            //Console.WriteLine("Правильно!!!\n\nДопущено ошибок - {0}\nРешено примеров - {1}", mistakes, examples);
+            //Console.WriteLine("\nДля продолжения нажмите - Enter\nДля выхода нажмите - Home\n");
+            //ConsoleKeyInfo key = Console.ReadKey();
+            //Console.Clear();
+            //if (key.Key == ConsoleKey.Enter)
+            //{
+            //    continue;
+
+            //}
+            //if (key.Key == ConsoleKey.Home)
+            //{
+            //    programm = false;
+
+            //}
+            break;
+
+
 
 
     }
@@ -144,7 +184,7 @@ while (programm == true)
 
 
 
-   
+
 
 
     //Console.WriteLine("Ваш ответ?\n");
@@ -244,7 +284,7 @@ static bool NumberCheck(string a)
         }
         else
         {
-            return false;  
+            return false;
         }
     }
 }
