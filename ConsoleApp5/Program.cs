@@ -17,6 +17,9 @@ string enter;
 bool number;
 int answer = 0;
 int result = 0;
+int attempt = 0;
+float efficiency = 0;
+string total;
 var list = new Dictionary<int, string>();
 Console.SetWindowSize(90, 30);
 
@@ -108,166 +111,166 @@ while (programm == true)
             break;
 
         case 3:
+
             if (answer != result)
             {
                 mistakes++;
                 Console.Clear();
-                Console.WriteLine("Не правильно!\n\nДопущено ошибок - {0}\nРешено примеров - {1}\n", mistakes, examples);
+                Console.WriteLine("Неправильно!\nПодумайте еще. Это несложно! ;)\n");
+
+
                 if (znak == 0)
                 {
                     Console.WriteLine("{0} - {1} = ?\n", number1, number2);
-
+                    total = $" {number1} - {number2} = {answer} - Ошибка!";
+                    attempt++;
+                    list.Add(attempt, total);
 
                 }
                 if (znak == 1)
                 {
                     Console.WriteLine("{0} + {1} = ?\n", number1, number2);
-
+                    total = $" {number1} + {number2} = {answer} - Ошибка!";
+                    attempt++;
+                    list.Add(attempt, total);
 
                 }
                 menu = 2;
             }
             if (answer == result)
             {
+                if (znak == 0)
+                {
+                    Console.WriteLine("{0} - {1} = {2}\n", number1, number2, result);
+                    total = $" {number1} - {number2} = {result} - Правильно!";
+                    attempt++;
+                    list.Add(attempt, total);
 
+                }
+                if (znak == 1)
+                {
+                    Console.WriteLine("{0} + {1} = {2}\n", number1, number2, result);
+                    total = $" {number1} + {number2} = {result} - Правильно!";
+                    attempt++;
+                    list.Add(attempt, total);
+
+                }
+
+
+                Console.WriteLine("\nПравильно!!!\n\nДопущено ошибок - {0}\nРешено примеров - {1}", mistakes, examples);
+                menu = 4;
             }
             break;
 
 
         case 4:
-            Console.WriteLine("\nДля продолжения нажмите - Enter\nДля выхода нажмите - Home\n");
+            Console.WriteLine("\nДля продолжения нажмите - Enter\nДля выхода и просмотра статистики нажмите - Home\n");
             ConsoleKeyInfo key = Console.ReadKey();
             Console.Clear();
             if (key.Key == ConsoleKey.Enter)
             {
-                menu = 2;
-                break;
+                menu = 1;
+
             }
             if (key.Key == ConsoleKey.Home)
             {
                 programm = false;
-                break;
+
             }
 
             break;
-
-            //answer = Convert.ToInt32(Console.ReadLine());
-            //Console.Clear();
-            //examples++;
-            //string total = $"{a} + {b} = {result}";
-            //list.Add(examples, total);
-            //Console.WriteLine("Правильно!!!\n\nДопущено ошибок - {0}\nРешено примеров - {1}", mistakes, examples);
-            //Console.WriteLine("\nДля продолжения нажмите - Enter\nДля выхода нажмите - Home\n");
-            //ConsoleKeyInfo key = Console.ReadKey();
-            //Console.Clear();
-            //if (key.Key == ConsoleKey.Enter)
-            //{
-            //    continue;
-
-            //}
-            //if (key.Key == ConsoleKey.Home)
-            //{
-            //    programm = false;
-
-            //}
-            break;
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-    //Console.WriteLine("Ваш ответ?\n");
-    //string a = Console.ReadLine();
-
-
-
-
-
-    //Console.WriteLine("{0} + {1}", a, b);
-    //Console.WriteLine("Ваш ответ?\n");
-    //string enter = Console.ReadLine();
-    //if (int.TryParse(enter, out answer))
-
-    //{
-
-    //    answer = Convert.ToInt32(enter);
-    //    break;
-
-    //}
-    //else
-    //{
-    //    Console.Clear();
-    //    continue;
-    //}
-
-
-    //    answer = Answer();
-    //    while (answer != result)
-    //    {
-    //        mistakes++;
-    //        Console.Clear();
-    //        Console.WriteLine("Не правильно!\n\nДопущено ошибок - {0}\nРешено примеров - {1}\n", mistakes, examples);
-    //        Console.WriteLine("{0} + {1}", a, b);
-    //        Console.WriteLine("Ваш ответ?\n");
-
-    //        //answer = Convert.ToInt32(Console.ReadLine());
-
-    //    }
-    //    Console.Clear();
-    //    examples++;
-    //    string total = $"{a} + {b} = {result}";
-    //    list.Add(examples, total);
-    //    Console.WriteLine("Правильно!!!\n\nДопущено ошибок - {0}\nРешено примеров - {1}", mistakes, examples);
-    //    Console.WriteLine("\nДля продолжения нажмите - Enter\nДля выхода нажмите - Home\n");
-    //    ConsoleKeyInfo key = Console.ReadKey();
-    //    Console.Clear();
-    //    if (key.Key == ConsoleKey.Enter)
-    //    {
-    //        continue;
-
-    //    }
-    //    if (key.Key == ConsoleKey.Home)
-    //    {
-    //        programm = false;
-
-    //    }
-
-
-
-
-
-
-    //}
-    //double mistakesDec = Convert.ToDouble(mistakes);
-    //double examplesDec = Convert.ToDouble(examples);
-    //double efficiency = (100 - examplesDec / mistakesDec * 100);
-    //Console.WriteLine("Статистика решенных примеров:\nПримеров - {0}\nДопущено ошибок - {1}\nЭффективность - {2}%\n", examples, mistakes, efficiency);
-    //foreach (var item in list)
-    //{
-    //    Console.WriteLine($"{item.Key}. {item.Value}");
-    //}
-    //Environment.Exit(0);
-
-
-
-
-
-
-
-
-
 }
+
+if (attempt == 0 | mistakes == 0)
+{
+    efficiency = 100;
+}
+else
+{
+    efficiency = (float)examples / (float)attempt / (float)mistakes * 100;
+}
+
+Console.WriteLine("Статистика решенных примеров:\nПримеров - {0}\nПопыток - {1}\nДопущено ошибок - {2}\nЭффективность - {3}%\n", examples, attempt, mistakes, efficiency);
+foreach (var item in list)
+{
+    Console.WriteLine($"{item.Key}. {item.Value}");
+}
+Environment.Exit(0);
+
+
+//answer = Convert.ToInt32(Console.ReadLine());
+//Console.Clear();
+//examples++;
+//string total = $"{a} + {b} = {result}";
+//list.Add(examples, total);
+//Console.WriteLine("Правильно!!!\n\nДопущено ошибок - {0}\nРешено примеров - {1}", mistakes, examples);
+//Console.WriteLine("\nДля продолжения нажмите - Enter\nДля выхода нажмите - Home\n");
+//ConsoleKeyInfo key = Console.ReadKey();
+//Console.Clear();
+//if (key.Key == ConsoleKey.Enter)
+//{
+//    continue;
+
+//}
+//if (key.Key == ConsoleKey.Home)
+//{
+//    programm = false;
+
+//}
+
+
+
+
+
+
+
+
+
+//    Console.Clear();
+//    examples++;
+//    string total = $"{a} + {b} = {result}";
+//    list.Add(examples, total);
+//    Console.WriteLine("Правильно!!!\n\nДопущено ошибок - {0}\nРешено примеров - {1}", mistakes, examples);
+//    Console.WriteLine("\nДля продолжения нажмите - Enter\nДля выхода нажмите - Home\n");
+//    ConsoleKeyInfo key = Console.ReadKey();
+//    Console.Clear();
+//    if (key.Key == ConsoleKey.Enter)
+//    {
+//        continue;
+
+//    }
+//    if (key.Key == ConsoleKey.Home)
+//    {
+//        programm = false;
+
+//    }
+
+
+
+
+
+
+
+//double mistakesDec = Convert.ToDouble(mistakes);
+//double examplesDec = Convert.ToDouble(examples);
+//double efficiency = (100 - examplesDec / mistakesDec * 100);
+//Console.WriteLine("Статистика решенных примеров:\nПримеров - {0}\nДопущено ошибок - {1}\nЭффективность - {2}%\n", examples, mistakes, efficiency);
+//foreach (var item in list)
+//{
+//    Console.WriteLine($"{item.Key}. {item.Value}");
+//}
+//Environment.Exit(0);
+
+
+
+
+
+
+
+
+
+
 
 
 
