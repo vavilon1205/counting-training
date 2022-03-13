@@ -2,11 +2,9 @@
 
 
 
-
+Random rnd = new Random();
 bool programm = true;
 int menu = 0;
-int min = 0;
-int max = 10;
 int calculationLimit = 0;
 int znak = 0;
 int number1 = 0;
@@ -59,14 +57,14 @@ while (programm == true)
                 Console.WriteLine("Решите следующий пример\n");
                 examples++;
             }
-            znak = RandomNumber(0, 1);
+            znak = rnd.Next(0, 1);
             if (znak == 0)
             {
                 while (true)
                 {
-                    number1 = RandomNumber(min, max);
-                    number2 = RandomNumber(min, max);
-                    if (number1 >= number2 & calculationLimit >= (number1 | number2))
+                    number1 = rnd.Next(0, calculationLimit);
+                    number2 = rnd.Next(0, calculationLimit);
+                    if ((number1 >= number2) & calculationLimit >= (number1 | number2))
                     {
                         Console.WriteLine($"{number1} - {number2}");
                         result = number1 - number2;
@@ -79,8 +77,8 @@ while (programm == true)
             {
                 while (true)
                 {
-                    number1 = RandomNumber(min, max);
-                    number2 = RandomNumber(min, max);
+                    number1 = rnd.Next(0, calculationLimit);
+                    number2 = rnd.Next(0, calculationLimit);
                     if (calculationLimit <= number1 + number2)
                     {
                         Console.WriteLine($"{number1} + {number2}");
@@ -117,7 +115,7 @@ while (programm == true)
             {
                 mistakes++;
                 Console.Clear();
-                Console.WriteLine("Неправильно!\nПодумайте еще. Это несложно! ;)\n");
+                Console.WriteLine("\nНеправильно!\nПодумайте еще. Это несложно! ;)\n");
 
 
                 if (znak == 0)
@@ -142,7 +140,7 @@ while (programm == true)
             {
                 if (znak == 0)
                 {
-                    Console.WriteLine("{0} - {1} = {2}\n", number1, number2, result);
+                    Console.WriteLine("\n{0} - {1} = {2}\n", number1, number2, result);
                     total = $" {number1} - {number2} = {result} - Правильно!";
                     attempt++;
                     list.Add(attempt, total);
@@ -150,7 +148,7 @@ while (programm == true)
                 }
                 if (znak == 1)
                 {
-                    Console.WriteLine("{0} + {1} = {2}\n", number1, number2, result);
+                    Console.WriteLine("\n{0} + {1} = {2}\n", number1, number2, result);
                     total = $" {number1} + {number2} = {result} - Правильно!";
                     attempt++;
                     list.Add(attempt, total);
@@ -158,7 +156,7 @@ while (programm == true)
                 }
 
 
-                Console.WriteLine("\nПравильно!!!\n\nДопущено ошибок - {0}\nРешено примеров - {1}", mistakes, examples);
+                Console.WriteLine("Правильно!!!\n\nДопущено ошибок - {0}\nРешено примеров - {1}", mistakes, examples);
                 menu = 4;
             }
             break;
@@ -194,6 +192,7 @@ while (programm == true)
 
             Console.WriteLine("Статистика решенных примеров:\nПримеров - {0}\nПопыток - {1}\nДопущено ошибок - {2}\nЭффективность - {3}%\n", examples, attempt, mistakes, efficiency);
             Console.WriteLine("\nДля выхода из программы нажмите - Enter\n");
+            Console.WriteLine("Список решенных примеров:\n");
             foreach (var item in list)
             {
                 Console.WriteLine($"{item.Key}. {item.Value}");
