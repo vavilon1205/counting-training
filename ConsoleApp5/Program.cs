@@ -21,6 +21,7 @@ int attempt = 0;
 float efficiency = 0;
 string total;
 var list = new Dictionary<int, string>();
+
 Console.SetWindowSize(90, 30);
 
 
@@ -164,7 +165,7 @@ while (programm == true)
 
 
         case 4:
-            Console.WriteLine("\nДля продолжения нажмите - Enter\nДля выхода и просмотра статистики нажмите - Home\n");
+            Console.WriteLine("\nДля продолжения нажмите - Enter\nДля просмотра статистики и выхода нажмите - Home\n");
             ConsoleKeyInfo key = Console.ReadKey();
             Console.Clear();
             if (key.Key == ConsoleKey.Enter)
@@ -174,29 +175,43 @@ while (programm == true)
             }
             if (key.Key == ConsoleKey.Home)
             {
-                programm = false;
+                menu = 5;
 
             }
 
             break;
+
+        case 5:
+
+            if (attempt == 0 | mistakes == 0)
+            {
+                efficiency = 100;
+            }
+            else
+            {
+                efficiency = (float)examples / (float)attempt / (float)mistakes * 100;
+            }
+
+            Console.WriteLine("Статистика решенных примеров:\nПримеров - {0}\nПопыток - {1}\nДопущено ошибок - {2}\nЭффективность - {3}%\n", examples, attempt, mistakes, efficiency);
+            Console.WriteLine("\nДля выхода из программы нажмите - Enter\n");
+            foreach (var item in list)
+            {
+                Console.WriteLine($"{item.Key}. {item.Value}");
+            }
+
+            key = Console.ReadKey();
+            Console.Clear();
+            if (key.Key == ConsoleKey.Enter)
+            {
+                Environment.Exit(0);
+            }
+            break;
+
     }
 }
 
-if (attempt == 0 | mistakes == 0)
-{
-    efficiency = 100;
-}
-else
-{
-    efficiency = (float)examples / (float)attempt / (float)mistakes * 100;
-}
 
-Console.WriteLine("Статистика решенных примеров:\nПримеров - {0}\nПопыток - {1}\nДопущено ошибок - {2}\nЭффективность - {3}%\n", examples, attempt, mistakes, efficiency);
-foreach (var item in list)
-{
-    Console.WriteLine($"{item.Key}. {item.Value}");
-}
-Environment.Exit(0);
+
 
 
 //answer = Convert.ToInt32(Console.ReadLine());
